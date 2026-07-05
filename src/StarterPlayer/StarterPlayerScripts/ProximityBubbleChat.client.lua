@@ -28,11 +28,12 @@ local BUBBLE_DURATION = 8 -- seconds a message stays alive before it fully expir
 
 local FONT = Enum.Font.Gotham
 local TEXT_SIZE = 14
-local MIN_BUBBLE_WIDTH = 46
-local MAX_BUBBLE_WIDTH = 180
-local HORIZONTAL_PADDING = 20
-local VERTICAL_PADDING = 14
+local MIN_BUBBLE_WIDTH = 54
+local MAX_BUBBLE_WIDTH = 200
+local HORIZONTAL_PADDING = 22
+local VERTICAL_PADDING = 10
 local LINE_HEIGHT = 16
+local BUBBLE_CORNER_RADIUS = 10
 
 -- Turn off Roblox's default bubble chat so only our custom bubbles are shown.
 local bubbleChatConfiguration = TextChatService:FindFirstChild("BubbleChatConfiguration")
@@ -64,16 +65,18 @@ local function createBubble(head)
         background.Parent = billboard
 
         local backgroundCorner = Instance.new("UICorner")
-        backgroundCorner.CornerRadius = UDim.new(1, 0)
+        backgroundCorner.CornerRadius = UDim.new(0, BUBBLE_CORNER_RADIUS)
         backgroundCorner.Parent = background
 
         -- Small pointer tail: a rotated square whose top half hides behind the
         -- bubble background (lower ZIndex), leaving only the bottom point visible.
+        -- Kept small and tucked close to the bubble so it reads as a subtle
+        -- pointer rather than a floating diamond.
         local tail = Instance.new("Frame")
         tail.Name = "Tail"
         tail.AnchorPoint = Vector2.new(0.5, 0.5)
-        tail.Position = UDim2.new(0.5, 0, 1, 0)
-        tail.Size = UDim2.new(0, 12, 0, 12)
+        tail.Position = UDim2.new(0.5, 0, 1, -3)
+        tail.Size = UDim2.new(0, 10, 0, 10)
         tail.Rotation = 45
         tail.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         tail.BorderSizePixel = 0
