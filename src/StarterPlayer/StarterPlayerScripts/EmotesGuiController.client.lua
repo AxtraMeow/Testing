@@ -11,7 +11,7 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -357,14 +357,22 @@ closeButton.MouseButton1Click:Connect(function()
 end)
 
 -- Press "R" to toggle the emotes menu open/closed.
-UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
-        if gameProcessedEvent then
-                return
-        end
-
-        if input.KeyCode == Enum.KeyCode.R then
+-- Bound via ContextActionService at High priority (and Sink the input) so the
+-- default chat bar (which auto-captures letter keys like R to start typing a
+-- message) never gets a chance to steal the keypress first.
+local function onToggleEmotesAction(_actionName, inputState)
+        if inputState == Enum.UserInputState.Begin then
                 emotesGui.Enabled = not emotesGui.Enabled
         end
-end)
+        return Enum.ContextActionResult.Sink
+end
+
+ContextActionService:BindActionAtPriority(
+        "ToggleEmotesMenu",
+        onToggleEmotesAction,
+        false,
+        Enum.ContextActionPriority.High.Value,
+        Enum.KeyCode.R
+)
 
 renderPageSafe()
