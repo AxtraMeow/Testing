@@ -11,6 +11,7 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -353,6 +354,17 @@ end)
 
 closeButton.MouseButton1Click:Connect(function()
         emotesGui.Enabled = false
+end)
+
+-- Press "R" to toggle the emotes menu open/closed.
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+        if gameProcessedEvent then
+                return
+        end
+
+        if input.KeyCode == Enum.KeyCode.R then
+                emotesGui.Enabled = not emotesGui.Enabled
+        end
 end)
 
 renderPageSafe()
