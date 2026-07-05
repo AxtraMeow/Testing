@@ -1,0 +1,28 @@
+{
+  "name": "MyGame",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$path": "src/ReplicatedStorage"
+    },
+
+    "ServerScriptService": {
+      "$path": "src/ServerScriptService"
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/StarterPlayer/StarterPlayerScripts"
+      }
+    },
+
+    "StarterGui": {
+      "$path": "src/StarterGui"
+    },
+
+    "Workspace": {
+      "$path": "src/Workspace"
+    }
+  }
+}
