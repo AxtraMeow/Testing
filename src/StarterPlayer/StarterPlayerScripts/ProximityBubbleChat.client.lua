@@ -11,7 +11,8 @@
 
         Requires TextChatService (Roblox's default modern chat system) to be enabled.
         The default built-in bubble chat is disabled here so it doesn't double up with
-        this custom one; the classic top-left chat window is left untouched.
+        this custom one. The default chat window/input bar/topbar icon are disabled
+        separately in CustomChatWindow.client.lua.
 ]]
 
 local Players = game:GetService("Players")
